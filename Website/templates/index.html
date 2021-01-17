@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../static/bridge.png" sizes="128x128"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>Translate</title>
+</head>
+
+<!-- <script>
+    $(document).ready(function(){
+
+         $("#loginForm").slideDown(1000)   
+
+    });
+
+</script> -->
+
+<body>
+    <!-- <h1 class="center-text">Log in</h1> -->
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg" style="margin-top: 100px;">
+                <h1 style="font-family: 'Arvo', serif; margin-left: 5rem; font-size: 70px;">Gateway</h1>
+                <img src="static/bridge.png" width="400px" height="400px">
+            </div>
+
+            <div class="col-lg" id="loginForm" style="margin-top: 13rem">
+
+                <form action="{{ url_for('index') }}" method="POST">
+                    <!-- <label for="userName">Please enter your username</label> -->
+                    <div class="row justify-content-center" style="margin-bottom: 1rem; height: 3rem;">
+                        <input type="text" name="userName" placeholder="Username"
+                            style="border-radius: 10px; width: 15rem; font-size:25px;">
+                    </div>
+
+
+                    <!-- <label for="languages">Pick a language</label> -->
+                    <div class="row justify-content-center" style="margin-bottom: 1rem;">
+                        <select name="language"
+                            style="height: 3rem; border-radius: 10px; width: 15rem; font-size:25px;">
+                            <option value="" disabled selected>Language</option>
+                            {% for language in languageList %}
+                            <option value="{{language}}">{{language}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <input type="submit" class="btn btn-info" value="Log in" style="height: 3rem; width: 12rem; font-size: 25px;">
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <div id="bottomOne">
+        <p style="color: rgb(180, 180, 180); font-size: 10px;">bridge clipart PNG Designed By 588ku from <a
+                style="color: rgb(180, 180, 180) ;" href="https://pngtree.com">Pngtree.com</a>
+        </p>
+    </div>
+
+
+</body>
+
+
+</html>

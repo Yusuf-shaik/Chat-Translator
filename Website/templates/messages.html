@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title id="title">{{userName}}</title>
+
+</head>
+
+<script>
+    function updateScroll() {
+        var element = document.getElementById("container");
+        element.scrollTop = element.scrollHeight;
+    }
+
+    var decodeHTML = function (html) {
+	var txt = document.createElement('textarea');
+	txt.innerHTML = html;
+	return txt.value;
+    };
+    $(document).ready(function () {
+
+        $("#sendMessage").click(function () {
+            $.ajax({
+                data: {
+                    message: $('#inputMessage').val()
+                },
+                type: 'POST',
+                url: "/messages",
+            })
+
+            })
+            $('#inputMessage').val('');
+            event.preventDefault();
+        });
+
+
+    // $(document).ready(function () {
+
+    //     $("#refresh").click(function(){
+    //         $.ajax({
+    //         type: 'GET',
+    //         url: "/getData",
+    //     })
+    //     .done(function(data){
+    //         console.log(data)
+
+    //         var htmlString = "<ul>"
+    //         $.each(data, function( key, value ) {
+    //             console.log( data[key][0]);
+    //             htmlString += `<li class="list-group-item">
+    //                     {% if session["userName"]  == userName %}
+    //                     <strong>
+    //                         {% endif %}
+    //                         <p style="float: left;">${data[key][0]}: ${data[key[1]]}</p>
+    //                         {% if session["userName"] == userName %}
+    //                     </strong>
+    //                     {% endif %}
+
+    //                     <p style="float: right;">${data[key][2]}</p>
+    //                 </li>`
+
+                
+    //         });
+    //         htmlString += "</ul>";
+    //         $(".container").html(htmlString);
+
+    //     })
+
+    //     });
+
+    // });
+
+    
+
+
+    // $(document).ready(function () {
+    //     var interval = 1000;
+    //     function getMessages(){
+
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "/messages",
+    //     })
+    //     .done(function(){
+    //         setTimeout(getMessages, interval)
+    //     })
+    // }
+    // setTimeout(getMessages, interval)
+    
+    // });
+
+
+
+</script>
+
+
+<body onload="updateScroll()">
+    <button id="refresh">Refresh</button>
+
+    <form action="{{ url_for('logout') }}" method="POST">
+        <input type="submit" class="btn btn-secondary" style="float: right; margin-right: 1rem; margin-top: -1rem;"
+            value="Log Out">
+    </form>
+
+
+    <h1 class="center-text" style="font-family: 'Arvo', serif">Welcome {{userName}}</h1>
+
+    <center>
+        <div id="parent">
+            <div id="container">
+                
+                <ul class="list-group">
+                    {% for message in messages %}
+                    <li class="list-group-item">
+                        {% if message[0] == userName %}
+                        <strong>
+                            {% endif %}
+                            <p style="float: left;">{{message[0]}}: {{message[1]}}</p>
+                            {% if message[0] == userName %}
+                        </strong>
+                        {% endif %}
+
+                        <p style="float: right;">{{message[2].strftime("%I:%M %p")}}</p>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+                
+            </div>
+        </div>
+    </center>
+    <center>
+        <form action="{{ url_for('message') }}" method="POST">
+            <input type="text" id="inputMessage" name="message"
+                style="width: 64%; height: 3rem; margin-top: 1rem; font-size: 25px;">
+            <input type="submit" class="btn btn-info" id="sendMessage"
+                style="height: 3rem; width: 5rem; vertical-align: bottom; margin: 0 auto; padding: 15px;" value="Send">
+            </input>
+        </form>
+    </center>
+</body>
+
+
+</html>
